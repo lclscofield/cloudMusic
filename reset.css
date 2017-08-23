@@ -12,8 +12,16 @@
   box-sizing: border-box;
 }
 
+body {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333333;
+  font-family: Helvetica, sans-serif;
+}
+
 a {
   color: inherit;
+  text-decoration: none;
 }
 
 ol,

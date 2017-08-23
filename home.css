@@ -1,0 +1,48 @@
+section.topbar {
+  height: 64px;
+  padding: 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #d43c33;
+}
+
+section.topbar .top-logo {
+  height: 25px;
+}
+
+section.topbar .top-logo>svg {
+  width: 142px;
+  height: 25px;
+}
+
+section.topbar>a {
+  font-size: 15px;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  color: #ffffff;
+  position: relative;
+}
+
+section.topbar>a::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  transform: scale(.5);
+  transform-origin: top left;
+  border-radius: 37.5%/100%;
+  border: 1px solid #ffffff;
+}
+
+section.globalTabs {}
+
+section.playlists {}
+
+section.songs {}
+
+section.art {}
