@@ -1,6 +1,12 @@
+/* topbar */
+
 section.topbar {
   height: 64px;
+  width: 100%;
+  top: 0;
+  left: 0;
   padding: 0 10px;
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,9 +45,75 @@ section.topbar>a::after {
   border: 1px solid #ffffff;
 }
 
-section.globalTabs {}
 
-section.playlists {}
+/* globalTabs */
+
+section.globalTabs {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 100%;
+}
+
+section.globalTabs ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  background: #ffffff;
+  position: relative;
+}
+
+section.globalTabs>ul::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-bottom: 1px solid #cccccc;
+  width: 200%;
+  height: 200%;
+  transform: scale(.5);
+  transform-origin: top left;
+}
+
+section.globalTabs ul>li {
+  width: 33.3%;
+  text-align: center;
+  cursor: pointer;
+  flex: 1;
+}
+
+section.globalTabs ul>li>div {
+  display: inline-block;
+  font-size: 15px;
+  line-height: 40px;
+  padding: 0 5px;
+  position: relative;
+}
+
+section.globalTabs ul>li>div>span {
+  vertical-align: middle;
+}
+
+section.globalTabs ul>li>div.active>span {
+  color: #d33a31;
+}
+
+section.globalTabs ul>li>div.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 100%;
+  height: 4px;
+  transform: scaleY(.5);
+  background: #d33a31;
+}
+
+section.playlists {
+  margin-top: 104px;
+}
 
 section.songs {}
 
