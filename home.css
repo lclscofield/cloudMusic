@@ -11,6 +11,7 @@ section.topbar {
   justify-content: space-between;
   align-items: center;
   background: #d43c33;
+  z-index: 100;
 }
 
 section.topbar .top-logo {
@@ -53,6 +54,7 @@ section.globalTabs {
   top: 64px;
   left: 0;
   width: 100%;
+  z-index: 100;
 }
 
 section.globalTabs ul {
@@ -197,9 +199,129 @@ section.playlists a.playlist>p {
 
 /* newMusic */
 
-section.newMusic {}
+section.newMusic h2 {
+  position: relative;
+  padding-left: 9px;
+  margin-bottom: 14px;
+  font-size: 17px;
+  height: 20px;
+  line-height: 20px;
+}
+
+section.newMusic h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -9px;
+  width: 2px;
+  height: 16px;
+  background-color: #d33a31;
+}
+
+section.newMusic .songs {
+  position: relative;
+  min-height: 20px;
+}
+
+section.newMusic .songs>a {
+  display: flex;
+  padding-left: 10px;
+}
+
+section.newMusic .newMusic-song {
+  flex: 1 1 auto;
+  display: flex;
+  position: relative;
+}
+
+section.newMusic .newMusic-song::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  transform: scale(.5);
+  transform-origin: top left;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+section.newMusic .newMusic-song .newMusic-songText {
+  flex: 1 1 auto;
+  padding: 6px 0;
+  width: 0;
+}
+
+section.newMusic .newMusic-song h3 {
+  font-size: 17px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: normal;
+}
+
+section.newMusic .newMusic-song p {
+  font-size: 12px;
+  color: #888888;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: normal;
+}
+
+section.newMusic .newMusic-song .playButton-wrapper {
+  display: flex;
+  align-items: center;
+  -webkit-box-align: center;
+  padding: 0 10px;
+}
 
 
-/* art */
+/* footer art */
 
-section.art {}
+footer {
+  position: relative;
+  padding-top: 53.3%;
+  margin-top: 4px;
+  background: url('//s3.music.126.net/m/s/img/recommand_bg_2x.png?d045fafc60e017b653f8065a87496922') no-repeat;
+  background-size: contain;
+}
+
+footer .art {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+}
+
+footer .art .footer-logo {
+  padding-top: 16.9%;
+}
+
+footer .art .footer-logo>svg {
+  width: 230px;
+  height: 44px;
+  display: block;
+  margin: 0 auto;
+}
+
+footer .art .footer-download a {
+  display: block;
+  font-size: 16px;
+  line-height: 38px;
+  border: 1px solid #d33a31;
+  border-radius: 38px;
+  color: #d33a31;
+  margin: 15px 37px 5px;
+}
+
+footer .art .copyright small {
+  display: block;
+  font-size: 12px;
+  color: #888888;
+  line-height: 16px;
+  transform: scale(.75);
+}
