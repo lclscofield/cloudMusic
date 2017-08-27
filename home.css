@@ -57,7 +57,7 @@ section.globalTabs {
   z-index: 100;
 }
 
-section.globalTabs ul {
+section.globalTabs ol.tabs {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,7 +66,7 @@ section.globalTabs ul {
   position: relative;
 }
 
-section.globalTabs>ul::after {
+section.globalTabs>ol.tabs::after {
   content: '';
   position: absolute;
   top: 0;
@@ -78,14 +78,15 @@ section.globalTabs>ul::after {
   transform-origin: top left;
 }
 
-section.globalTabs ul>li {
+section.globalTabs ol.tabs>li {
   width: 33.3%;
+  z-index: 1;
   text-align: center;
   cursor: pointer;
   flex: 1;
 }
 
-section.globalTabs ul>li>div {
+section.globalTabs ol.tabs>li>div {
   display: inline-block;
   font-size: 15px;
   line-height: 40px;
@@ -93,15 +94,15 @@ section.globalTabs ul>li>div {
   position: relative;
 }
 
-section.globalTabs ul>li>div>span {
+section.globalTabs ol.tabs>li>div>span {
   vertical-align: middle;
 }
 
-section.globalTabs ul>li>div.active>span {
+section.globalTabs ol.tabs>li.active>div>span {
   color: #d33a31;
 }
 
-section.globalTabs ul>li>div.active::after {
+section.globalTabs ol.tabs>li.active>div::after {
   content: '';
   position: absolute;
   left: 0;
@@ -113,11 +114,19 @@ section.globalTabs ul>li>div.active::after {
   background: #d33a31;
 }
 
+.tabs-content>li {
+  display: none;
+}
+
+.tabs-content>li.active {
+  display: block;
+  margin-top: 104px;
+}
+
 
 /* playlists */
 
 section.playlists {
-  margin-top: 104px;
   padding-top: 20px;
   padding-bottom: 24px;
 }
