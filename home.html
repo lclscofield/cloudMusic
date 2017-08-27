@@ -290,7 +290,24 @@
 
   </div>
 
-  <script src="./jquery.min.js"></script>
+  <script src="./vendors/jquery.min.js"></script>
+  <script src="./vendors/av-min.js"></script>
+  <script>
+    var APP_ID = '2zDrWgAws4gjpLRoSFJKxFw3-gzGzoHsz'
+    var APP_KEY = 'thxthBXWnp8r4Odyu6B0OFoz'
+
+    AV.init({
+      appId: APP_ID,
+      appKey: APP_KEY
+    })
+    
+    var query = new AV.Query('Song')
+    query.find().then(function(results){
+      for(let i =0; i < results.length; i++){
+        console.log(results[i].attributes)
+      }
+    })
+  </script>
 </body>
 
 </html>
