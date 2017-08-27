@@ -2,7 +2,7 @@
 let tabsNode = document.querySelector('.tabs')
 let tabs = tabsNode.children
 let tabsContent = document.querySelectorAll('.tabs-content>li')
-tabsNode.addEventListener('click', function (e) { // mouseover 可以换成 click 点击事件
+tabsNode.addEventListener('click', function (e) {
   let element = e.target
   while (element.tagName !== 'LI') { //点击事件优化
     if (element === tabsNode) {
@@ -22,40 +22,44 @@ tabsNode.addEventListener('click', function (e) { // mouseover 可以换成 clic
   }
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var APP_ID = '2zDrWgAws4gjpLRoSFJKxFw3-gzGzoHsz'
-var APP_KEY = 'thxthBXWnp8r4Odyu6B0OFoz'
+// 更新歌曲
+let APP_ID = '2zDrWgAws4gjpLRoSFJKxFw3-gzGzoHsz'
+let APP_KEY = 'thxthBXWnp8r4Odyu6B0OFoz'
 
 AV.init({
   appId: APP_ID,
   appKey: APP_KEY
 })
 
-// var query = new AV.Query('Song')
-// query.find().then(function(results){
-//   for(let i =0; i < results.length; i++){
-//     console.log(results[i].attributes)
-//   }
-// })
+let query = new AV.Query('Song')
+let hotSongs = document.querySelector('.hot-music>.songs')
+query.find().then(function (results) {
+  for (let i = 0; i < results.length; i++) {
+    let song = results[i].attributes
+    if (i < 9) {
+      let a = `<a>
+               <div class="num">0${i+1}</div>
+               <div class="song">
+                 <div class="songText">
+                   <h3>${song.name}</h3>
+                   <p><i class="sqIcon"></i>${song.singer} - ${song.album}</p>
+                 </div>
+                 <div class="playButton-wrapper"><span class="playButton"></span></div>
+               </div>
+             </a>`
+      hotSongs.insertAdjacentHTML('beforeend', a)
+    } else {
+      let a = `<a>
+      <div class="num">${i+1}</div>
+      <div class="song">
+        <div class="songText">
+          <h3>${song.name}</h3>
+          <p><i class="sqIcon"></i>${song.singer} - ${song.album}</p>
+        </div>
+        <div class="playButton-wrapper"><span class="playButton"></span></div>
+      </div>
+    </a>`
+      hotSongs.insertAdjacentHTML('beforeend', a)
+    }
+  }
+})
