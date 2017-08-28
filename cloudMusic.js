@@ -186,6 +186,8 @@ function searchChange(value) {
   h3.innerHTML = `搜索“${value}”`
   // 清除搜索提示
   searchHintUl.innerHTML = ''
+  // 清空搜索结果
+  searchResult.innerHTML = ''
   // 搜索值为空时
   if (!value) {
     searchDefault.classList.remove('hidden')
@@ -194,7 +196,7 @@ function searchChange(value) {
     h3.classList.remove('active')
     searchHintUl.innerHTML = ''
     searchHint.classList.add('hidden')
-    searResult.innerHTML = ''
+    searchResult.innerHTML = ''
     noResult.classList.remove('active')
     return
   }
@@ -207,7 +209,7 @@ search.addEventListener('keydown', function (e) {
   }
 })
 // 显示搜索结果，并将搜索值写入历史
-let searResult = document.querySelector('.search .songs')
+let searchResult = document.querySelector('.search .songs')
 let searchHistoryUl = document.querySelector('.search-history ul')
 let noResult = document.querySelector('.noResult div')
 
@@ -273,7 +275,7 @@ function show() {
         </div>
       </a>
       `
-      searResult.insertAdjacentHTML('beforeend', a)
+      searchResult.insertAdjacentHTML('beforeend', a)
     }
   })
 }
