@@ -229,36 +229,37 @@
         <li class="active">
           <div class="search">
 
-            <form class="searchInput" action="#">
+            <div class="searchInput">
               <div class="input">
                 <i class="searchIcon"></i>
-                <input type="search" name="search">
+                <input id="search" type="search">
                 <label class="hint">搜索歌曲、歌手、专辑</label>
                 <div class="clearSearch"><i></i></div>
               </div>
-            </form>
+            </div>
+
+            <div class="searchHint">
+              <h3></h3>
+              <ul><!-- <li><i></i><span></span></li> --></ul>
+            </div>
 
             <div class="search-default">
 
               <div class="search-hot">
                 <h3>热门搜索</h3>
-                <ul>
-                  <li>123</li>
-                </ul>
+                <ul><!-- <li></li> --></ul>
               </div>
 
               <div class="search-history">
-                <ul>
-                  <li>
-                    <i class="history-timeIcon"></i>
-                    <div class="history-name">
-                      <span>12312361161313546516515655551354453132151613543516465</span>
-                      <i class="history-deleteIcon"></i>
-                    </div>
-                  </li>
-                </ul>
+                <ul></ul>
               </div>
 
+            </div>
+
+            <div class="songs"></div>
+            
+            <div class="noResult">
+              <div>暂无搜索结果</div>
             </div>
 
           </div>
@@ -268,7 +269,7 @@
 
   </div>
 
-  <script src="./vendors/jquery.min.js"></script>
+  <!-- <script src="./vendors/jquery.min.js"></script> -->
   <script src="./vendors/av-min.js"></script>
   <script src="./cloudMusic.js"></script>
 </body>
