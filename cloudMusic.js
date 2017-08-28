@@ -91,7 +91,7 @@ query.find().then(function (results) {
     }
   }
   // 随机加载 sq 图标
-  let icons = document.querySelectorAll('i')
+  let icons = document.querySelectorAll('.hot-music>.songs i, .newMusic>.songs i')
   for (let i = 0; i < icons.length; i++) {
     if (Math.random() * 2 < 1) {
       icons[i].classList.add('sqIcon')
