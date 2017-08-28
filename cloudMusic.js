@@ -123,6 +123,7 @@ let clickTrue = true
 hotBottom.addEventListener('click', function (e) {
   let hotSong = document.querySelector('.hot-music>.songs')
   if (clickTrue === true) {
+    let query = new AV.Query('Song')
     query.find().then(function (results) {
       // 从数据库加载后 10 首热门音乐
       for (let i = 10; i < results.length; i++) {
