@@ -320,3 +320,18 @@ hotSearch.addEventListener('click', function (e) {
   input()
   show()
 })
+
+// 点击 searchHint 传值给搜索框
+searchHintUl.addEventListener('click', function (e) {
+  let event = e.target
+  while (event.tagName !== 'LI') {
+    if (event === searchHintUl) {
+      event = null
+      break
+    }
+    event = event.parentNode
+  }
+  search.value = event.innerText
+  input()
+  show()
+})
