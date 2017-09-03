@@ -153,69 +153,96 @@ hotBottom.addEventListener('click', function (e) {
 })
 
 // 搜索功能
+// 默认页面
 let search = document.querySelector('#search')
-let searchHintUl = document.querySelector('.searchHint ul')
-let searchHint = document.querySelector('.searchHint')
-// 输入事件
 search.addEventListener('input', input)
-
+// 默认页面行为-输入事件
+// 输入搜索值时的的行为
 function input() {
-  let value = search.value.trim()
-  searchChange(value)
-  query.contains('name', value)
-  query.find().then(function (results) {
-    for (let i = 0; i < results.length; i++) {
-      let song = results[i].attributes
-      searchHintUl.innerHTML = ''
-      let li = `<li><i></i><span>${song.name}</span></li>`
-      searchHintUl.insertAdjacentHTML('beforeend', li)
-    }
-  })
-}
-// 清除提示，添加删除按钮
-let labelHint = document.querySelector('#search+label')
-let searchDefault = document.querySelector('.search-default')
-
-function searchChange(value) {
-  searchDefault.classList.add('hidden') // 隐藏 search-default
-  clearSearch.classList.add('active') // 显示删除按钮
-  labelHint.classList.remove('hint') // 隐藏 labelHint
-  searchHint.classList.remove('hidden') // 显示 searchHint
-  // 显示 h3
-  let h3 = document.querySelector('.searchHint h3')
-  h3.classList.add('active')
-  h3.innerHTML = `搜索“${value}”`
-  // 清除搜索提示
-  searchHintUl.innerHTML = ''
-  // 清空搜索结果
-  searchResult.innerHTML = ''
+  let value = search.value.trim() // 获取输入值
+  hideDefaultPage() // 隐藏默认页面
+  showSearchHint(value) // 显示提示页面
   // 搜索值为空时
   if (!value) {
-    searchDefault.classList.remove('hidden')
-    labelHint.classList.add('hint')
-    clearSearch.classList.remove('active')
-    h3.classList.remove('active')
-    searchHintUl.innerHTML = ''
-    searchHint.classList.add('hidden')
-    searchResult.innerHTML = ''
-    noResult.classList.remove('active')
-    return
+    showDefaultPage() // 显示默认页面
+    hideSearchHint(value) // 隐藏提示页面
   }
 }
+
+// 默认页面行为-点击回车键显示搜索结果
 // 按回车显示搜索结果，并将搜索值写入历史
 search.addEventListener('keydown', function (e) {
   if (e.keyCode === 13) {
     search.blur()
-    show()
+    showSearchResult()
+    writeSearchHistory()
+    let value = search.value.trim() // 获取输入值
+    hideSearchHint(value)
   }
 })
-// 显示搜索结果，并将搜索值写入历史
-let searchResult = document.querySelector('.search .songs')
-let searchHistoryUl = document.querySelector('.search-history ul')
-let noResult = document.querySelector('.noResult div')
 
-function show() {
-  let value = search.value.trim()
+// 默认页面行为-点击热门搜索显示搜索结果
+// 点击热门搜索传值给搜索框并直接显示搜索结果
+let hotSearch = document.querySelector('.search-hot ul')
+hotSearch.addEventListener('click', function (e) {
+  let event = e.target
+  while (event.tagName !== 'LI') {
+    if (event === hotSearch) {
+      event = null
+      break
+    }
+    event = event.parentNode
+  }
+  search.value = event.innerText
+  hideDefaultPage()
+  showSearchResult()
+  writeSearchHistory()
+})
+
+// 默认页面行为-点击搜索历史显示搜索结果
+// 点击搜索历史搜索或删除
+let searchHistoryUl = document.querySelector('.search-history ul')
+searchHistoryUl.addEventListener('click', function (e) {
+  let event = e.target
+  if (event.tagName === 'SPAN') {
+    search.value = event.innerText
+    hideDefaultPage()
+    showSearchResult()
+    writeSearchHistory()
+  }
+  if (event.tagName === 'I') {
+    while (event.tagName !== 'LI') {
+      if (event === searchHistoryUl) {
+        event = null
+        break
+      }
+      event = event.parentNode
+    }
+    event.parentNode.removeChild(event)
+  }
+})
+
+// 隐藏默认页面
+let clearSearch = document.querySelector('.input .clearSearch>i')
+let searchDefault = document.querySelector('.search-default')
+let labelHint = document.querySelector('#search+label')
+
+function hideDefaultPage() {
+  searchDefault.classList.add('hidden') // 隐藏 search-default
+  clearSearch.classList.add('active') // 显示删除按钮
+  labelHint.classList.remove('hint') // 隐藏 labelHint
+}
+
+// 显示默认页面
+function showDefaultPage() {
+  clearSearch.classList.remove('active') // 隐藏删除按钮
+  labelHint.classList.add('hint') // 显示 labelHint
+  searchDefault.classList.remove('hidden') // 显示默认页面
+}
+
+// 写入搜索历史
+function writeSearchHistory() {
+  let value = search.value.trim() // 获取输入值
   // 添加历史搜索，判断是否有重复历史搜索，如有则不添加重复历史
   if (searchHistoryUl.children.length === 0) {
     let liHistory = `
@@ -248,23 +275,84 @@ function show() {
       searchHistoryUl.insertAdjacentHTML('beforeend', liHistory)
     }
   }
+}
 
-  // 显示搜索结果
+
+// 提示页面
+// 提示页面行为-点击清除搜索值
+// 点击清除搜索值
+clearSearch.addEventListener('click', function (e) {
+  search.value = ''
+  input()
+})
+
+// 提示页面行为-点击 searchHint 传值给搜索框
+// 点击 searchHint 传值给搜索框
+let searchHintUl = document.querySelector('.searchHint ul')
+searchHintUl.addEventListener('click', function (e) {
+  let event = e.target
+  while (event.tagName !== 'LI') {
+    if (event === searchHintUl) {
+      event = null
+      break
+    }
+    event = event.parentNode
+  }
+  search.value = event.innerText
+  hideSearchHint()
+  showSearchResult()
+  writeSearchHistory()
+})
+
+// 显示提示页面
+let searchHint = document.querySelector('.searchHint')
+let searchResult = document.querySelector('.search .songs')
+
+function showSearchHint(value) {
+  searchHintUl.innerHTML = '' // 清除搜索提示
+  searchResult.innerHTML = '' // 清空搜索结果
+  // 获取搜索值并渲染到页面
+  let h3 = document.querySelector('.searchHint h3')
+  h3.classList.add('active')
+  h3.innerHTML = `搜索“${value}”`
+  // 获取提示结果并渲染到页面
+  query.contains('name', value)
+  query.find().then(function (results) {
+    for (let i = 0; i < results.length; i++) {
+      let song = results[i].attributes
+      let li = `<li><i></i><span>${song.name}</span></li>`
+      searchHintUl.insertAdjacentHTML('beforeend', li)
+    }
+  })
+  searchHint.classList.remove('hidden') // 显示 searchHint
+}
+
+// 隐藏提示页面，清空搜索结果
+let noResult = document.querySelector('.noResult div')
+
+function hideSearchHint(value) {
+  // 隐藏搜索提示
+  let h3 = document.querySelector('.searchHint h3')
+  h3.classList.remove('active')
+
+  searchHintUl.innerHTML = '' // 清空搜索提示
+  searchResult.innerHTML = '' // 清空搜索结果
+  searchHint.classList.add('hidden') // 隐藏提示
+  noResult.classList.remove('active') // 隐藏无结果提示
+}
+
+// 搜索结果页面
+// 显示搜索结果
+function showSearchResult() {
+  let value = search.value.trim() // 获取输入值
   query.contains('name', value)
   query.find().then(function (results) {
     if (results.length === 0) {
-      let h3 = document.querySelector('.searchHint h3')
-      h3.classList.remove('active')
-      searchHintUl.innerHTML = ''
-      searchHint.classList.add('hidden')
       noResult.classList.add('active')
+      return
     }
     for (let i = 0; i < results.length; i++) {
       let song = results[i].attributes
-      let h3 = document.querySelector('.searchHint h3')
-      h3.classList.remove('active')
-      searchHintUl.innerHTML = ''
-      searchHint.classList.add('hidden')
       let a = `
       <a>
         <div class="song">
@@ -280,61 +368,3 @@ function show() {
     }
   })
 }
-
-// 点击清除搜索值
-let clearSearch = document.querySelector('.input .clearSearch>i')
-clearSearch.addEventListener('click', function (e) {
-  search.value = ''
-  searchChange(search.value)
-})
-
-// 点击搜索历史搜索或删除
-searchHistoryUl.addEventListener('click', function (e) {
-  let event = e.target
-  if (event.tagName === 'SPAN') {
-    search.value = event.innerText
-    input()
-    show()
-  }
-  if (event.tagName === 'I') {
-    while (event.tagName !== 'LI') {
-      if (event === searchHistoryUl) {
-        event = null
-        break
-      }
-      event = event.parentNode
-    }
-    event.parentNode.removeChild(event)
-  }
-})
-
-// 点击热门搜索传值给搜索框
-let hotSearch = document.querySelector('.search-hot ul')
-hotSearch.addEventListener('click', function (e) {
-  let event = e.target
-  while (event.tagName !== 'LI') {
-    if (event === hotSearch) {
-      event = null
-      break
-    }
-    event = event.parentNode
-  }
-  search.value = event.innerText
-  input()
-  show()
-})
-
-// 点击 searchHint 传值给搜索框
-searchHintUl.addEventListener('click', function (e) {
-  let event = e.target
-  while (event.tagName !== 'LI') {
-    if (event === searchHintUl) {
-      event = null
-      break
-    }
-    event = event.parentNode
-  }
-  search.value = event.innerText
-  input()
-  show()
-})
