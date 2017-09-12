@@ -158,10 +158,22 @@ let search = document.querySelector('#search')
 search.addEventListener('input', input)
 // 默认页面行为-输入事件
 // 输入搜索值时的的行为
+let timer = null // 设置时钟防止太多请求
 function input() {
   let value = search.value.trim() // 获取输入值
   hideDefaultPage() // 隐藏默认页面
-  showSearchHint(value) // 显示提示页面
+  // 获取搜索值并渲染到页面
+  let h3 = document.querySelector('.searchHint h3')
+  h3.classList.add('active')
+  h3.innerHTML = `搜索“${value}”`
+  // 函数节流
+  if (timer) {
+    window.clearTimeout(timer)
+  }
+  timer = setTimeout(function () {
+    showSearchHint(value) // 显示提示页面
+    timer = null
+  }, 300)
   // 搜索值为空时
   if (!value) {
     showDefaultPage() // 显示默认页面
@@ -311,19 +323,21 @@ let searchResult = document.querySelector('.search .songs')
 function showSearchHint(value) {
   searchHintUl.innerHTML = '' // 清除搜索提示
   searchResult.innerHTML = '' // 清空搜索结果
-  // 获取搜索值并渲染到页面
-  let h3 = document.querySelector('.searchHint h3')
-  h3.classList.add('active')
-  h3.innerHTML = `搜索“${value}”`
-  // 获取提示结果并渲染到页面
-  query.contains('name', value)
-  query.find().then(function (results) {
-    for (let i = 0; i < results.length; i++) {
-      let song = results[i].attributes
-      let li = `<li><i></i><span>${song.name}</span></li>`
-      searchHintUl.insertAdjacentHTML('beforeend', li)
-    }
-  })
+  if (value) {
+    // 获取搜索值并渲染到页面
+    let h3 = document.querySelector('.searchHint h3')
+    h3.classList.add('active')
+    h3.innerHTML = `搜索“${value}”`
+    // 获取提示结果并渲染到页面
+    query.contains('name', value)
+    query.find().then(function (results) {
+      for (let i = 0; i < results.length; i++) {
+        let song = results[i].attributes
+        let li = `<li><i></i><span>${song.name}</span></li>`
+        searchHintUl.insertAdjacentHTML('beforeend', li)
+      }
+    })
+  }
   searchHint.classList.remove('hidden') // 显示 searchHint
 }
 
