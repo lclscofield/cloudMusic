@@ -15,6 +15,9 @@ tabsNode.addEventListener('click', function (e) {
     if (tabs[i] === event) {
       tabs[i].classList.add('active')
       tabsContent[i].classList.add('active')
+      if(i === tabs.length - 1){
+        search.focus()
+      }
     } else {
       tabs[i].classList.remove('active')
       tabsContent[i].classList.remove('active')
