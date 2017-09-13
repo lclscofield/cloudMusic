@@ -332,7 +332,6 @@ function showSearchHint(value) {
     let query2 = new AV.Query('Song')
     query2.contains('singer', value)
     query2.find().then(function (results) {
-      console.log(results)
       if (results.length !== 0) {
         for (let i = 0; i < results.length; i++) {
           let song = results[i].attributes
