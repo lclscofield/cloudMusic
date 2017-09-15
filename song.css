@@ -1,7 +1,7 @@
 /* song */
 
 .song {
-  height: 100%;
+  height: 100vh;
   min-width: 320px;
   position: relative;
   overflow: hidden;
@@ -15,7 +15,6 @@ section.bg {
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: auto 100%;
-  background-image: url('//music.163.com/api/img/blur/74766790706391');
 }
 
 section.bg::after {
@@ -30,6 +29,17 @@ section.bg::after {
   right: 0;
   bottom: 0;
   left: 0;
+}
+
+@media screen and (orientation: landscape) {
+  .song {
+    min-height: 400px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  section.bg {
+    background-size: 100% auto;
+  }
 }
 
 
@@ -104,7 +114,7 @@ section.top .cover-content {
   margin: -75px 0 0 -75px;
   border-radius: 50%;
   overflow: hidden;
-  background: url('//p1.music.126.net/N1pCSE3EtocC7NowAAuEHQ==/74766790706391.webp?imageView&thumbnail=721y721&quality=75&tostatic=0&type=webp') no-repeat;
+  background-repeat: no-repeat;
   background-size: contain;
 }
 
@@ -232,6 +242,16 @@ section.top .cover.initial .cover-content {
   }
 }
 
+@media screen and (min-width: 414px) {
+  .song-content {
+    margin-top: 15px;
+  }
+  .song-content .song-lyric {
+    margin-top: 6px;
+    height: 55px;
+  }
+}
+
 
 /* footer */
 
@@ -239,9 +259,65 @@ section.footer {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: 20px;
 }
 
 section.footer .footer-wrap {
-  
+  display: flex;
+  margin: 0 auto;
+  max-width: 320px;
+}
+
+section.footer span {
+  flex: 1 1 auto;
+  width: 1%;
+  display: block;
+  height: 36px;
+  line-height: 36px;
+  padding: 0 6px;
+  font-size: 15px;
+  border: 1px solid #d43b32;
+  border-radius: 4px;
+  text-align: center;
+}
+
+section.footer .open {
+  margin-left: 0;
+  color: #d43b32;
+  background-color: transparent;
+}
+
+section.footer .download {
+  color: #ffffff;
+  background-color: #d43b32;
+  margin-left: 12px;
+}
+
+@media screen and (min-width: 360px) {
+  section.footer .footer-wrap {
+    max-width: 292px;
+  }
+  section.footer span {
+    font-size: 18px;
+    height: 42px;
+    line-height: 42px;
+  }
+}
+
+@media screen and (min-width: 414px) {
+  section.footer .footer-wrap {
+    max-width: 320px;
+  }
+  section.footer span {
+    font-size: 20px;
+    height: 47px;
+    line-height: 47px;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  section.footer {
+    position: static;
+    margin-top: 20px;
+  }
 }

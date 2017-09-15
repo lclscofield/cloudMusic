@@ -25,11 +25,20 @@ query.get(id).then(function (song) {
     name,
     singer,
     url,
-    lyric
+    lyric,
+    bg,
+    img
   } = song.attributes
+  console.log(song)
+  // 加载背景图片
+  let bgImg = document.querySelector('section.bg')
+  bgImg.style.backgroundImage = `url('${bg}')`
+  // 加载封面
+  let coverImg = document.querySelector('section.top .cover-content')
+  coverImg.style.backgroundImage = `url('${img}')`
+
   let arr = []
   let parts = lyric.split('\n') // 截取每段歌词
-
   parts.forEach(function (string, index) {
     let str = string.split(']')
     str[0] = Number(str[0].slice(1, str[0].indexOf(':'))) * 60 + Number(str[0].slice(str[0].indexOf(':') + 1))
@@ -76,6 +85,14 @@ function play(url, arr, inner, playBtn) {
           p[i - 1].style.color = ``
           p[i].style.color = `rgb(255, 255, 255)`
           inner.style.transform = `translateY(-${(i-1)*32}px)`
+          if (video.ended) {
+            p[0].style.color = `rgb(255, 255, 255)`
+            inner.style.transform = `translateY(0px)`
+            cover.classList.remove('playing')
+            cover.classList.add('initial')
+            playBtn.classList.add('pause')
+            clearInterval(time)
+          }
         }
       } else
       if (current >= arr[i].time && current < arr[i + 1].time) {
@@ -88,14 +105,6 @@ function play(url, arr, inner, playBtn) {
         }
         break
       }
-    }
-    if (current === video.currentTime) {
-      p[0].style.color = `rgb(255, 255, 255)`
-      inner.style.transform = `translateY(0px)`
-      cover.classList.remove('playing')
-      cover.classList.add('initial')
-      playBtn.classList.add('pause')
-      clearInterval(time)
     }
   }, 300)
 }

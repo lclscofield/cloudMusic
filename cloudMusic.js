@@ -43,7 +43,6 @@ query.find().then(function (results) {
   for (let i = 0; i < loading.length; i++) {
     loading[i].parentNode.removeChild(loading[i])
   }
-
   // 从数据库加载数据
   for (let i = 0; i < results.length - 10; i++) {
     let song = results[i].attributes
@@ -51,7 +50,7 @@ query.find().then(function (results) {
     let newMusic = document.querySelector('.newMusic>.songs')
     if (i < 10) {
       let a = `
-      <a>
+      <a href='./song.html?id=${results[i].id}'>
         <div class="song">
           <div class="songText">
             <h3>${song.name}</h3>
@@ -68,7 +67,7 @@ query.find().then(function (results) {
     let hotSong = document.querySelector('.hot-music>.songs')
     if (i < 9) { // 加载热门音乐前 10 首
       let a = `
-      <a>
+      <a href='./song.html?id=${results[i].id}'>
         <div class="num">0${i+1}</div>
         <div class="song">
           <div class="songText">
@@ -82,7 +81,7 @@ query.find().then(function (results) {
       hotSong.insertAdjacentHTML('beforeend', a)
     } else {
       let a = `
-      <a>
+      <a href='./song.html?id=${results[i].id}'>
         <div class="num">${i+1}</div>
         <div class="song">
           <div class="songText">
@@ -132,7 +131,7 @@ hotBottom.addEventListener('click', function (e) {
       for (let i = 10; i < results.length; i++) {
         let song = results[i].attributes
         let a = `
-        <a>
+        <a href='./song.html?id=${results[i].id}'>
           <div class="num">${i+1}</div>
           <div class="song">
             <div class="songText">
@@ -388,7 +387,7 @@ function showSearchResult() {
     for (let i = 0; i < results.length; i++) {
       let song = results[i].attributes
       let a = `
-      <a>
+      <a href='./song.html?id=${results[i].id}'>
         <div class="song">
           <div class="songText">
             <h3>${song.name}</h3>
