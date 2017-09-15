@@ -29,7 +29,6 @@ query.get(id).then(function (song) {
     bg,
     img
   } = song.attributes
-  console.log(song)
   // 加载背景图片
   let bgImg = document.querySelector('section.bg')
   bgImg.style.backgroundImage = `url('${bg}')`

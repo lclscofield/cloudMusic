@@ -1,5 +1,9 @@
 /* song */
 
+.page {
+  height: 100%;
+}
+
 .song {
   height: 100vh;
   min-width: 320px;
@@ -15,6 +19,9 @@ section.bg {
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: auto 100%;
+  transform: scale(1.5);
+  opacity: 1;
+  transition: opacity .3s linear;
 }
 
 section.bg::after {
@@ -40,13 +47,16 @@ section.bg::after {
   section.bg {
     background-size: 100% auto;
   }
+  section.top {
+    position: relative;
+  }
 }
 
 
 /* top wrapper */
 
 section.top .wrapper {
-  padding-top: 70px;
+  padding-top: 63px;
 }
 
 section.top .wrapper-content {
@@ -83,6 +93,11 @@ section.top .playBtn {
 
 section.top .playBtn.pause {
   display: block;
+}
+
+section.top .cover {
+  width: 100%;
+  height: 100%;
 }
 
 section.top .cover::before,
@@ -128,7 +143,11 @@ section.top .cover.initial .cover-content {
   transform: rotate(0deg);
 }
 
+
 @media screen and (min-width: 360px) {
+  section.top .wrapper {
+    padding-top: 70px;
+  }
   section.top .wrapper-content {
     width: 296px;
     height: 296px;
@@ -152,6 +171,9 @@ section.top .cover.initial .cover-content {
 }
 
 @media screen and (min-width: 414px) {
+  section.top .wrapper {
+    padding-top: 80px;
+  }
   section.top .wrapper-content {
     width: 342px;
     height: 342px;
